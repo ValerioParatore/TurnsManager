@@ -1,0 +1,16 @@
+export const damageTypeKeys = [
+  "fuoco",
+  "radiante",
+  "forza",
+  "fulmine",
+  "veleno",
+  "psichico",
+  "necrotico",
+  "freddo",
+  "acido",
+  "argento",
+  "perforante",
+  "contundente",
+  "taglio",
+  "danniNonMagici",
+] as const;
