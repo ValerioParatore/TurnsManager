@@ -89,7 +89,7 @@ function Detail({ character }: Props) {
         </button>
       </form>
 
-      <button className="btn btn-danger" type="button" onClick={handleDelete}>
+      <button className="btn" type="button" onClick={handleDelete}>
         Elimina
       </button>
     </>

@@ -34,23 +34,29 @@
         border: 1px solid;
         border-color: $color-primary-dark;
         cursor: pointer;
+        span {
+          text-transform: uppercase;
+          font-weight: 600;
+          font-size: 1.2rem;
+          color: $color-secondary;
+        }
 
         &:hover {
           background-color: $color-primary-dark;
           color: #fff;
+          span {
+            color: $color-secondary-light;
+          }
         }
 
         &.active {
           background-color: $color-tertiary;
           color: #fff;
           border-color: $color-tertiary;
-        }
 
-        span {
-          text-transform: uppercase;
-          font-weight: 600;
-          font-size: 1.2rem;
-          color: $color-secondary;
+          span {
+            color: $color-secondary-light;
+          }
         }
       }
     }

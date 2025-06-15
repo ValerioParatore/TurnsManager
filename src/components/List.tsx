@@ -62,7 +62,7 @@ function List({ onItemSelected }: Props) {
       </div>
 
       <div className="list_footer">
-        <button className="btn" onClick={goNextTurn}>
+        <button className="btn btn-confirm" onClick={goNextTurn}>
           Prossimo turno
         </button>
       </div>
