@@ -84,12 +84,12 @@ function Detail({ character }: Props) {
             />
           </label>
         </div>
-        <button className="btn" type="submit">
+        <button className="btn btn-confirm" type="submit">
           Salva
         </button>
       </form>
 
-      <button className="btn btn-red" type="button" onClick={handleDelete}>
+      <button className="btn btn-danger" type="button" onClick={handleDelete}>
         Elimina
       </button>
     </>

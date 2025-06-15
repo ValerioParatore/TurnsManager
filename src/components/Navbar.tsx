@@ -47,7 +47,7 @@ function Navbar() {
     <>
       <nav>
         <ul>
-          <li>Turns Manager</li>
+          <h2>Turns Manager</h2>
           <li onClick={() => openModal(false)}>Aggiungi mob</li>
           <li onClick={() => openModal(true)}>Aggiungi personaggio</li>
           <li onClick={clearMobs}>Pulisci lista</li>

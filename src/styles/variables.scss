@@ -1,0 +1,22 @@
+$color-background: #edf2f9; // Grigio molto chiaro freddo
+$color-primary: #d72638; // Rosso acceso principale
+$color-primary-light: #ff1d34; // Variante chiara del rosso
+$color-primary-dark: #a31b28; // Variante scura del rosso
+$color-tertiary: hsl(0, 0%, 10%); // Nero "morbido" (non puro)
+$color-secondary: #0a6a14;
+
+// Tipografia
+$font-family-base: "Inter", sans-serif;
+$font-size-base: 16px;
+
+// Spaziature
+$spacing-xs: 4px;
+$spacing-sm: 8px;
+$spacing-md: 16px;
+$spacing-lg: 24px;
+$spacing-xl: 32px;
+
+// Border radius
+$radius-sm: 4px;
+$radius-md: 8px;
+$radius-lg: 16px;

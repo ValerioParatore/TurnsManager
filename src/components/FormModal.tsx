@@ -101,7 +101,7 @@ function FormModal({
             </label>
           </div> */}
 
-          <button className="btn" type="submit">
+          <button className="btn btn-confirm" type="submit">
             salva
           </button>
         </form>

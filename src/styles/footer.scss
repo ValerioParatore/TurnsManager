@@ -1,0 +1,22 @@
+@import "variables";
+
+.footer {
+  height: 13svh;
+  padding: 1rem;
+  background-color: $color-tertiary;
+  text-align: center;
+  font-size: 0.875rem;
+  color: $color-primary;
+
+  .footer-links {
+    margin: 0.5rem 0;
+    a {
+      margin: 0 0.5rem;
+      color: $color-secondary;
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}

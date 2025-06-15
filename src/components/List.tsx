@@ -11,6 +11,7 @@ function List({ onItemSelected }: Props) {
   const [mergedList, setMergedList] = useState<Character[]>([]);
   const [turn, setTurn] = useState<number>(0);
   const [round, setRound] = useState<number>(1);
+  const [selectedCharId, setSelectedCharId] = useState<number | null>(null);
 
   useEffect(() => {
     const newList = [...heroes, ...mobs].sort(
@@ -47,10 +48,14 @@ function List({ onItemSelected }: Props) {
           {mergedList.map((char, index) => (
             <li
               key={char.id}
-              onClick={() => onItemSelected(char)}
-              className={index === turn ? "active" : ""}
+              onClick={() => {
+                onItemSelected(char);
+                setSelectedCharId(char.id);
+              }}
+              className={char.id === selectedCharId ? "active" : ""}
             >
               {char.nome} - PF: {char.puntiFerita} - CA: {char.classeArmatura}
+              {index === turn && <span>è il suo turno</span>}
             </li>
           ))}
         </ul>
