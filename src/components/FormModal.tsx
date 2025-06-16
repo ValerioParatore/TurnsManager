@@ -1,5 +1,7 @@
 import type { FormEvent } from "react";
 import type { Character } from "../types/Character";
+import { CircleX } from 'lucide-react';
+
 // import { damageTypeKeys } from "../variables/damagesType";
 
 type Props = {
@@ -29,58 +31,59 @@ function FormModal({
   }
   return (
     <>
-      <div className="form-modal">
-        <div className="form-modal_header">
-          <h3 className="title title-dark">Aggiungi {forHero ? "eroe" : "avversario"}</h3>
-          <button onClick={onButtonClose}>x</button>
-        </div>
-        <form className="form-modal_form" onSubmit={(e) => onSubmit(e)}>
-          <div>
-            <label className="label">
-              Nome
-              <input
-                className="input"
-                type="text"
-                value={formData.nome}
-                onChange={(e) => onChange("nome", e.target.value)}
-              />
-            </label>
+      <div className="form-modal modal-overlay">
+        <div className="modal-content">
+          <div className="form-modal_header">
+            <h3 className="title title-dark">Aggiungi {forHero ? "eroe" : "avversario"}</h3>
+            <button onClick={onButtonClose}><CircleX /></button>
           </div>
-          <div>
-            <label className="label">
-              Iniziativa
-              <input
-                className="input"
-                type="number"
-                value={formData.iniziativa}
-                onChange={(e) => onChange("iniziativa", e.target.value)}
-              />
-            </label>
-          </div>
-          <div>
-            <label className="label">
-              Punti ferita
-              <input
-                className="input"
-                type="number"
-                value={formData.puntiFerita}
-                onChange={(e) => onChange("puntiFerita", e.target.value)}
-              />
-            </label>
-          </div>
-          <div>
-            <label className="label">
-              Classe armatura
-              <input
-                className="input"
-                type="number"
-                value={formData.classeArmatura}
-                onChange={(e) => onChange("classeArmatura", e.target.value)}
-              />
-            </label>
-          </div>
-          {/* coming soon res and weak */}
-          {/* <div>
+          <form className="form-modal_form" onSubmit={(e) => onSubmit(e)}>
+            <div>
+              <label className="label">
+                Nome
+                <input
+                  className="input"
+                  type="text"
+                  value={formData.nome}
+                  onChange={(e) => onChange("nome", e.target.value)}
+                />
+              </label>
+            </div>
+            <div>
+              <label className="label">
+                Iniziativa
+                <input
+                  className="input"
+                  type="number"
+                  value={formData.iniziativa}
+                  onChange={(e) => onChange("iniziativa", e.target.value)}
+                />
+              </label>
+            </div>
+            <div>
+              <label className="label">
+                Punti ferita
+                <input
+                  className="input"
+                  type="number"
+                  value={formData.puntiFerita}
+                  onChange={(e) => onChange("puntiFerita", e.target.value)}
+                />
+              </label>
+            </div>
+            <div>
+              <label className="label">
+                Classe armatura
+                <input
+                  className="input"
+                  type="number"
+                  value={formData.classeArmatura}
+                  onChange={(e) => onChange("classeArmatura", e.target.value)}
+                />
+              </label>
+            </div>
+            {/* coming soon res and weak */}
+            {/* <div>
             <label className="label">
               Debolezze ai danni
               <select name="" id="">
@@ -105,10 +108,11 @@ function FormModal({
             </label>
           </div> */}
 
-          <button className="btn btn-confirm" type="submit">
-            salva
-          </button>
-        </form>
+            <button className="btn btn-confirm" type="submit">
+              salva
+            </button>
+          </form>
+        </div>
       </div>
     </>
   );

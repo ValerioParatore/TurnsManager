@@ -1,11 +1,12 @@
 @import "variables";
 
-nav {
+.navbar {
   height: 10svh;
   padding: 0.5rem 2rem;
   background-color: $color-primary;
   color: $color-primary;
-  ul {
+  position: relative;
+  &-list {
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -15,14 +16,48 @@ nav {
     height: 100%;
 
     li {
-      font-size: 1.2rem;
-      font-weight: 600;
-      color: $text-color;
-      cursor: pointer;
+      span {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: $text-color;
+        display: block;
+        cursor: pointer;
 
-      &:hover {
-        transform: scale(1.05);
+        &:hover {
+          transform: scale(1.05);
+        }
       }
     }
   }
 }
+
+
+.dropdown {
+  position: absolute;
+  top: 4rem;
+  border-radius: $radius-md;
+  padding: 1.2rem;
+  background-color: $color-primary;
+  animation: fadeIn 0.2s ease-in-out;
+  opacity: 1;
+  transform: translateY(0);
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
+
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+

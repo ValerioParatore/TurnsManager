@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useCharacter } from "../provider/CharacterProvider";
 import type { Character } from "../types/Character";
+import { Shield, Heart  } from 'lucide-react';
 
 interface Props {
   onItemSelected: (item: Character) => void;
@@ -12,7 +13,8 @@ function List({ onItemSelected }: Props) {
   const [turn, setTurn] = useState<number>(0);
   const [round, setRound] = useState<number>(1);
   const [selectedCharId, setSelectedCharId] = useState<number | null>(null);
-
+  const [charInTurn,  setcharInTurn] = useState<Character | null>(null)
+ 
   useEffect(() => {
     const newList = [...heroes, ...mobs].sort(
       (a, b) => b.iniziativa - a.iniziativa
@@ -20,16 +22,20 @@ function List({ onItemSelected }: Props) {
     setMergedList(newList);
     setTurn(0); // reset turn when list updates
     setRound(1);
+    setcharInTurn(newList[0]);
   }, [heroes, mobs]);
 
   function goNextTurn() {
     if (mergedList.length === 0) return;
 
-    if (turn >= mergedList.length - 1) {
-      setTurn(0);
+    const isLastTurn = turn >= mergedList.length - 1;
+    const nextTurn = isLastTurn ? 0 : turn + 1;
+
+    setTurn(nextTurn);
+    setcharInTurn(mergedList[nextTurn]);
+
+    if (isLastTurn) {
       setRound((prev) => prev + 1);
-    } else {
-      setTurn((prev) => prev + 1);
     }
   }
 
@@ -42,7 +48,7 @@ function List({ onItemSelected }: Props) {
         </h4>
         <p className="text text-dark">Lista dei personaggi in combattimento in ordine di iniziativa</p>
         <div>
-          <span>È il turno di: <strong>{mergedList.find(x => x.id === selectedCharId)?.nome}</strong></span>
+          <span>È il turno di: <strong>{charInTurn?.nome}</strong></span>
         </div>
       </div>
 
@@ -57,14 +63,16 @@ function List({ onItemSelected }: Props) {
               }}
               className={`${char.id === selectedCharId ? "selected" : ""} ${index === turn ? "active" : ""}`}
             >
-              {char.nome} - PF: {char.puntiFerita} - CA: {char.classeArmatura}
+              <span className="d-flex-center">{char.nome}</span> 
+              <span className="d-flex-center"><Heart />PF: {char.puntiFerita}</span> 
+              <span className="d-flex-center"><Shield />CA: {char.classeArmatura}</span>
             </li>
           ))}
         </ul>
       </div>
 
       <div className="list_footer">
-        <button className="btn" onClick={goNextTurn}>
+        <button className="btn" onClick={goNextTurn} disabled={mergedList.length === 0}>
           Prossimo turno
         </button>
       </div>

@@ -48,7 +48,6 @@
         border: 2px solid;
         box-shadow: $card-shadow;
         border-color: $color-background;
-
         cursor: pointer;
 
         &:hover {
@@ -64,7 +63,7 @@
         }
 
         &.active {
-          background-color: $color-secondary;
+          background-color: $color-secondary-light;
         }
       }
     }
