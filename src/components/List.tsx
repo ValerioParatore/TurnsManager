@@ -36,11 +36,14 @@ function List({ onItemSelected }: Props) {
   return (
     <>
       <div className="list_header">
-        <h3>Round numero: {round}</h3>
-        <h4>
+        <h3 className="title title-dark">Round numero: {round}</h3>
+        <h4 className="subtitle subtitle-dark">
           Turno attuale: {turn + 1} / {mergedList.length}
         </h4>
-        <p>Lista dei personaggi in combattimento in ordine di iniziativa</p>
+        <p className="text text-dark">Lista dei personaggi in combattimento in ordine di iniziativa</p>
+        <div>
+          <span>È il turno di: <strong>{mergedList.find(x => x.id === selectedCharId)?.nome}</strong></span>
+        </div>
       </div>
 
       <div className="list_chars">
@@ -52,17 +55,16 @@ function List({ onItemSelected }: Props) {
                 onItemSelected(char);
                 setSelectedCharId(char.id);
               }}
-              className={char.id === selectedCharId ? "active" : ""}
+              className={`${char.id === selectedCharId ? "selected" : ""} ${index === turn ? "active" : ""}`}
             >
               {char.nome} - PF: {char.puntiFerita} - CA: {char.classeArmatura}
-              {index === turn && <span>è il suo turno</span>}
             </li>
           ))}
         </ul>
       </div>
 
       <div className="list_footer">
-        <button className="btn btn-confirm" onClick={goNextTurn}>
+        <button className="btn" onClick={goNextTurn}>
           Prossimo turno
         </button>
       </div>

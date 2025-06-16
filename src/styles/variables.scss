@@ -1,10 +1,21 @@
-$color-background: #fdf0d5; // Grigio molto chiaro freddo
-$color-primary: #c1121f; // Rosso acceso principale
-$color-primary-light: #e71523; // Variante chiara del rosso
-$color-primary-dark: #780000; // Variante scura del rosso
-$color-tertiary: hsl(0, 0%, 10%); // Nero "morbido" (non puro)
-$color-secondary: #003049;
-$color-secondary-light: #669bbc;
+@use "sass:color";
+
+$color-background: #EFF2EF;
+$color-background-dark: #E7E3DB;
+
+$color-primary: #01796F; 
+$color-primary-light: color.adjust($color-primary, $lightness: 5%);
+$color-primary-dark: color.adjust($color-primary, $lightness: -5%);
+
+$color-secondary: #B6862D;
+$color-secondary-light: color.adjust($color-secondary, $lightness: 5%);
+
+$color-tertiary: #4C4C4C;
+
+$text-color: #fff;
+$text-color-dark: #4C4C4C;
+
+$color-danger: #C1121F;
 
 // Tipografia
 $font-family-base: "Inter", sans-serif;
@@ -21,3 +32,8 @@ $spacing-xl: 32px;
 $radius-sm: 4px;
 $radius-md: 8px;
 $radius-lg: 16px;
+
+// Box shadow
+
+$modal-shadow: 0px 0px 10px 3px #4b4b4b;
+$card-shadow: 0px 0px 6px -2px #4b4b4b;

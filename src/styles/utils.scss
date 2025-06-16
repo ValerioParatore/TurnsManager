@@ -1,1 +1,43 @@
+@use "sass:color";
 @import "variables";
+
+
+.title {
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: $text-color;
+
+  &-dark {
+    color: $text-color-dark;
+  }
+}
+
+.subtitle {
+  margin-bottom: .75rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: $text-color;
+
+  &-dark {
+    color: $text-color-dark;
+  }
+}
+
+.text {
+  font-size: 1rem;
+  font-weight: 400;
+  color: $text-color;
+
+  &-dark {
+    color: $text-color-dark;
+  }
+}
+
+.d-flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}

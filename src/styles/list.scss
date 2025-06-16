@@ -13,12 +13,26 @@
     h4 {
       margin-bottom: 1rem;
     }
+
+    span {
+      padding: .5rem;
+      background-color: $color-tertiary;
+      color: $text-color;
+      border-radius: $radius-md;
+      display: block;
+      margin: .5rem 0;
+      
+      strong {
+        color: $color-secondary-light;
+      }
+    }
   }
 
   &_chars {
     overflow-y: scroll;
     scrollbar-width: none;
     flex: 1;
+    padding: .5rem;
     ul {
       display: flex;
       flex-direction: column;
@@ -29,34 +43,28 @@
         border-radius: 1rem;
         display: flex;
         justify-content: space-between;
-        color: $color-primary;
-        background-color: #fff;
-        border: 1px solid;
-        border-color: $color-primary-dark;
+        color: $text-color-dark;
+        font-weight: 600;
+        border: 2px solid;
+        box-shadow: $card-shadow;
+        border-color: $color-background;
+
         cursor: pointer;
-        span {
-          text-transform: uppercase;
-          font-weight: 600;
-          font-size: 1.2rem;
-          color: $color-secondary;
-        }
 
         &:hover {
-          background-color: $color-primary-dark;
-          color: #fff;
-          span {
-            color: $color-secondary-light;
-          }
+          background-color: $color-background-dark;
+          color: $text-color-dark;
+          border-color: $color-background;
+        }
+
+        &.selected {
+          background-color: $color-background-dark;
+          color: $text-color-dark;
+          border-color: $color-primary;
         }
 
         &.active {
-          background-color: $color-tertiary;
-          color: #fff;
-          border-color: $color-tertiary;
-
-          span {
-            color: $color-secondary-light;
-          }
+          background-color: $color-secondary;
         }
       }
     }

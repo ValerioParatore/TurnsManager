@@ -31,14 +31,15 @@ function FormModal({
     <>
       <div className="form-modal">
         <div className="form-modal_header">
-          <h3>Aggiungi {forHero ? "eroe" : "avversario"}</h3>
+          <h3 className="title title-dark">Aggiungi {forHero ? "eroe" : "avversario"}</h3>
           <button onClick={onButtonClose}>x</button>
         </div>
         <form className="form-modal_form" onSubmit={(e) => onSubmit(e)}>
           <div>
-            <label>
+            <label className="label">
               Nome
               <input
+                className="input"
                 type="text"
                 value={formData.nome}
                 onChange={(e) => onChange("nome", e.target.value)}
@@ -46,9 +47,10 @@ function FormModal({
             </label>
           </div>
           <div>
-            <label>
+            <label className="label">
               Iniziativa
               <input
+                className="input"
                 type="number"
                 value={formData.iniziativa}
                 onChange={(e) => onChange("iniziativa", e.target.value)}
@@ -56,9 +58,10 @@ function FormModal({
             </label>
           </div>
           <div>
-            <label>
+            <label className="label">
               Punti ferita
               <input
+                className="input"
                 type="number"
                 value={formData.puntiFerita}
                 onChange={(e) => onChange("puntiFerita", e.target.value)}
@@ -66,9 +69,10 @@ function FormModal({
             </label>
           </div>
           <div>
-            <label>
+            <label className="label">
               Classe armatura
               <input
+                className="input"
                 type="number"
                 value={formData.classeArmatura}
                 onChange={(e) => onChange("classeArmatura", e.target.value)}
@@ -77,7 +81,7 @@ function FormModal({
           </div>
           {/* coming soon res and weak */}
           {/* <div>
-            <label>
+            <label className="label">
               Debolezze ai danni
               <select name="" id="">
                 {damageTypeKeys.map((key) => (
@@ -89,7 +93,7 @@ function FormModal({
             </label>
           </div>
           <div>
-            <label>
+            <label className="label">
               Resistenze ai danni
               <select name="" id="">
                 {damageTypeKeys.map((key) => (
