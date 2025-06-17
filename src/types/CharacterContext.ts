@@ -10,4 +10,5 @@ export interface CharacterContextType {
   updateMob: (updatedMob: Character) => void
   removeHero: (id: number) => void
   removeMob: (id: number) => void
+  updateHeroes: (updated: Character[]) => void
 }

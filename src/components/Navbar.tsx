@@ -2,8 +2,12 @@ import { useEffect, useRef, useState, type FormEvent } from "react";
 import FormModal from "./FormModal";
 import { useCharacter } from "../provider/CharacterProvider";
 import type { Character } from "../types/Character";
+import { Trash2, UserRoundPlus, Swords } from 'lucide-react';
 
-function Navbar() {
+interface NavbarProps {
+  startNewFight: () => void;
+}
+function Navbar({startNewFight}: NavbarProps) {
   const initialValue = {
     id: 0,
     nome: "",
@@ -45,7 +49,7 @@ function Navbar() {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [dropDownOpen]);
+  }, [dropDownOpen, showFormModal]);
 
   function onInputChange(field: string, value: string | number) {
     setFormData((prev) => ({
@@ -71,7 +75,6 @@ function Navbar() {
   function openModal(forHero: boolean) {
     setFormData(initialValue);
     setForHero(forHero);
-    // setDropDownOpen(prev => !prev);
     setShowFormModal(true);
   }
 
@@ -80,17 +83,18 @@ function Navbar() {
       <nav className="navbar">
         <ul className="navbar-list">
           <h2>Turns Manager</h2>
+          <li onClick={startNewFight}><span><Swords  /> Inizia scontro</span></li>
           <li ref={dropdownRef} onClick={() => setDropDownOpen(prev => !prev)}>
-            <span>Aggiungi</span>
+            <span><UserRoundPlus /> Aggiungi</span>
             {dropDownOpen &&
               <div className="dropdown">
                 <ul>
-                  <li onClick={() => openModal(false)}><span>Aggiungi mob</span></li>
-                  <li onClick={() => openModal(true)}><span>Aggiungi personaggio</span></li>
+                  <li onClick={() => openModal(false)}><span> Mob</span></li>
+                  <li onClick={() => openModal(true)}><span> Eroe</span></li>
                 </ul>
               </div>}
           </li>
-          <li onClick={clearMobs}><span>Pulisci lista</span></li>
+          <li onClick={clearMobs}><span><Trash2 /> Svuota</span></li>
         </ul>
       </nav>
       {showFormModal && (

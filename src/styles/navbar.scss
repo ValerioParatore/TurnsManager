@@ -20,7 +20,9 @@
         font-size: 1.2rem;
         font-weight: 600;
         color: $text-color;
-        display: block;
+        display: flex;
+        align-items: end;
+        gap: .25rem;
         cursor: pointer;
 
         &:hover {

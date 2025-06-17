@@ -1,4 +1,9 @@
-import { useEffect, useState } from "react";
+import {
+  forwardRef,
+  useImperativeHandle,
+  useEffect,
+  useState,
+} from "react";
 import { useCharacter } from "../provider/CharacterProvider";
 import type { Character } from "../types/Character";
 import { Shield, Heart  } from 'lucide-react';
@@ -7,23 +12,35 @@ interface Props {
   onItemSelected: (item: Character) => void;
 }
 
-function List({ onItemSelected }: Props) {
-  const { heroes, mobs } = useCharacter();
+export type ListHandle = {
+  startNewFight: () => void;
+};
+
+const List = forwardRef<ListHandle, Props>(({ onItemSelected }, ref) => {
+  const { heroes, mobs, updateHeroes  } = useCharacter();
   const [mergedList, setMergedList] = useState<Character[]>([]);
   const [turn, setTurn] = useState<number>(0);
   const [round, setRound] = useState<number>(1);
   const [selectedCharId, setSelectedCharId] = useState<number | null>(null);
-  const [charInTurn,  setcharInTurn] = useState<Character | null>(null)
+  const [charInTurn,  setcharInTurn] = useState<Character | null>(null);
+  const [showModalRestart, setshowModalRestart] = useState<boolean>(false);
+  const [editableHeroes, setEditableHeroes] = useState<Character[]>([]);
  
   useEffect(() => {
-    const newList = [...heroes, ...mobs].sort(
-      (a, b) => b.iniziativa - a.iniziativa
-    );
-    setMergedList(newList);
-    setTurn(0); // reset turn when list updates
-    setRound(1);
-    setcharInTurn(newList[0]);
+    if (heroes.length > 0 || mobs.length > 0) {
+      const newList = [...heroes, ...mobs].sort(
+        (a, b) => b.iniziativa - a.iniziativa
+      );
+      setMergedList(newList);
+      setTurn(0);
+      setRound(1);
+      setcharInTurn(newList[0]);
+    }
   }, [heroes, mobs]);
+
+  useImperativeHandle(ref, () => ({
+    startNewFight,
+  }));
 
   function goNextTurn() {
     if (mergedList.length === 0) return;
@@ -37,6 +54,35 @@ function List({ onItemSelected }: Props) {
     if (isLastTurn) {
       setRound((prev) => prev + 1);
     }
+  }
+
+  function startNewFight() {
+    const copiedHeroes = heroes.map(h => ({ ...h }));
+    setEditableHeroes(copiedHeroes);
+    setshowModalRestart(true);
+    setTurn(0);
+    setRound(1);
+    setSelectedCharId(null);
+  }
+
+  function onConfirmResetInitiative() {
+        // 1. Aggiorna gli heroes nel provider
+    updateHeroes(editableHeroes);
+
+    // 2. Ricostruisci il mergedList ordinato
+    const newList = [...editableHeroes, ...mobs].sort(
+      (a, b) => b.iniziativa - a.iniziativa
+    );
+    setMergedList(newList);
+
+    // 3. Reset turno e round
+    setTurn(0);
+    setRound(1);
+    setcharInTurn(newList[0]);
+    setSelectedCharId(null);
+
+    // 4. Chiudi la modale
+    setshowModalRestart(false);
   }
 
   return (
@@ -76,8 +122,35 @@ function List({ onItemSelected }: Props) {
           Prossimo turno
         </button>
       </div>
+
+      {showModalRestart && 
+        <div className="form-modal">
+          <h3 className="title title-dark"></h3>
+          {editableHeroes.map((hero, index) => (
+            <div key={hero.id}>
+              <h5>{hero.nome}</h5>
+              <div>
+                <label htmlFor={hero.nome + index}>Iniziativa</label>
+                <input
+                  type="number"
+                  name={hero.nome + index}
+                  id={hero.nome + index}
+                  value={hero.iniziativa}
+                  onChange={(e) => {
+                    const value = parseInt(e.target.value) || 0;
+                    const updated = [...editableHeroes];
+                    updated[index].iniziativa = value;
+                    setEditableHeroes(updated);
+                  }}
+                />
+              </div>
+            </div>
+          ))}
+
+          <button className="btn" onClick={onConfirmResetInitiative}>Conferma</button>
+        </div>}
     </>
   );
-}
+})
 
 export default List;

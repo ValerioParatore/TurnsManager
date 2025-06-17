@@ -51,6 +51,10 @@ const CharacterProvider = ({ children }: Props) => {
     setMobs((prev: Character[]) => prev.filter((mob) => mob.id !== id));
   }
 
+  const updateHeroes = (updated: Character[]) => {
+    setHeroes(updated);
+  };
+
   useEffect(() => {}, []);
 
   return (
@@ -65,6 +69,7 @@ const CharacterProvider = ({ children }: Props) => {
         updateMob,
         removeHero,
         removeMob,
+        updateHeroes
       }}
     >
       {children}
