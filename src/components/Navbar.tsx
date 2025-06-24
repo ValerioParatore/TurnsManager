@@ -83,7 +83,7 @@ function Navbar({startNewFight}: NavbarProps) {
       <nav className="navbar">
         <ul className="navbar-list">
           <div className="logo-wrapper">
-            <img src="/src/assets/logo-tm.png" alt="logo" />
+            <img src="/logo-tm.png" alt="logo" />
           </div>
           <li onClick={startNewFight}><span><Swords  /> Inizia scontro</span></li>
           <li ref={dropdownRef} onClick={() => setDropDownOpen(prev => !prev)}>
