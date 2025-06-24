@@ -2,8 +2,6 @@ import type { FormEvent } from "react";
 import type { Character } from "../types/Character";
 import { CircleX } from 'lucide-react';
 
-// import { damageTypeKeys } from "../variables/damagesType";
-
 type Props = {
   onSubmit: (e: FormEvent<HTMLFormElement>) => void;
   forHero: boolean;

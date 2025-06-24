@@ -27,7 +27,6 @@ const List = forwardRef<ListHandle, Props>(({ onItemSelected, selectedCharcter }
   const [showModalRestart, setshowModalRestart] = useState<boolean>(false);
   const [editableHeroes, setEditableHeroes] = useState<Character[]>([]);
 
-  // Aggiorna mergedList ogni volta che heroes o mobs cambiano
   useEffect(() => {
     if (heroes.length > 0 || mobs.length > 0) {
       const newList = [...heroes, ...mobs].sort((a, b) => b.iniziativa - a.iniziativa);
@@ -35,13 +34,12 @@ const List = forwardRef<ListHandle, Props>(({ onItemSelected, selectedCharcter }
     }
   }, [heroes, mobs]);
 
-  // Inizializza solo la prima volta che mergedList è popolata
   useEffect(() => {
     if (mergedList.length > 0 && !initialized) {
       setTurn(0);
       setRound(1);
       setcharInTurn(mergedList[0]);
-      setInitialized(true); // ✅ flag per evitare esecuzioni future
+      setInitialized(true);
     }
   }, [mergedList, initialized]);
 
@@ -72,21 +70,17 @@ const List = forwardRef<ListHandle, Props>(({ onItemSelected, selectedCharcter }
   }
 
   function onConfirmResetInitiative() {
-    // 1. Aggiorna gli heroes nel provider
     updateHeroes(editableHeroes);
 
-    // 2. Ricostruisci il mergedList ordinato
     const newList = [...editableHeroes, ...mobs].sort(
       (a, b) => b.iniziativa - a.iniziativa
     );
     setMergedList(newList);
 
-    // 3. Reset turno e round
     setTurn(0);
     setRound(1);
     setcharInTurn(newList[0]);
 
-    // 4. Chiudi la modale
     setshowModalRestart(false);
   }
 
@@ -98,7 +92,7 @@ const List = forwardRef<ListHandle, Props>(({ onItemSelected, selectedCharcter }
             <div className="modal-content">
               <div className="form-modal_header">
                 <h3 className="title title-dark">Aggiorna l'iniziativa degli eroi.</h3>
-                <button onClick={() => setshowModalRestart(false)}><CircleX /></button>
+                <button onClick={() => setshowModalRestart(prev => !prev)}><CircleX /></button>
               </div>
               <form className="form-modal_form" onSubmit={() => onConfirmResetInitiative()}>
                 {editableHeroes.map((hero, index) => (
@@ -130,7 +124,7 @@ const List = forwardRef<ListHandle, Props>(({ onItemSelected, selectedCharcter }
           ) : (
             <div className="form-modal_header">
               <h3 className="title title-dark">Aggiungi gli eroi per poter far iniziare lo scontro!</h3>
-              <button><CircleX /></button>
+              <button onClick={() => setshowModalRestart(prev => !prev)}><CircleX /></button>
             </div>
           )}
         </div>
