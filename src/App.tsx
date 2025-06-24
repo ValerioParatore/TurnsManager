@@ -19,10 +19,10 @@ function App() {
       <Navbar startNewFight={handleStartNewFightFromNavbar}></Navbar>
       <main>
         <section className="list">
-          <List ref={listRef} onItemSelected={setSelectedItem}></List>
+          <List ref={listRef} onItemSelected={setSelectedItem} selectedCharcter={selectedItem}></List>
         </section>
         <section className="detail">
-          <Detail character={selectedItem}></Detail>
+          <Detail character={selectedItem} onClearSelectedCharcter={() => setSelectedItem(null)}></Detail>
         </section>
       </main>
       <Footer></Footer>

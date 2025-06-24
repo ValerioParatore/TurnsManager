@@ -9,36 +9,53 @@
   border-radius: $radius-md;
   background-color: $color-background-dark;
 
-  section {
+  &-header {
     display: flex;
-    flex-wrap: wrap;
+    align-items: center;
     justify-content: space-between;
+    width: 100%;
 
-    .types {
-      margin: 1rem 0;
-      label {
-        color: $color-primary;
-        padding: 0.5rem;
-        border-radius: $radius-md;
-        border: 2px solid $color-primary;
-        font-weight: 500;
-        background-color: #fff;
-        cursor: pointer;
-      }
-      .active {
-        background-color: $color-primary;
-        color: $text-color;
-      }
-      input {
-        visibility: hidden;
-      }
-    }
-
-    div {
-      flex: 0 0 50%;
-    }
     button {
-      flex: 0 0 30%;
+      background-color: transparent;
+      border: none;
+      padding: 0;
+    }
+  }
+
+  section {
+    .types-wrapper {
+      display: flex;
+      gap: 1rem;
+      align-items: start;
+
+      .types {
+        margin: 1rem 0;
+
+        label {
+          color: $color-primary;
+          padding: 0.5rem;
+          border-radius: $radius-md;
+          border: 2px solid $color-primary;
+          font-weight: 500;
+          background-color: #fff;
+          cursor: pointer;
+        }
+
+        .active {
+          background-color: $color-primary;
+          color: $text-color;
+        }
+
+        input {
+          visibility: hidden;
+        }
+      }
+    }
+
+    .amount {
+      display: flex;
+      align-items: end;
+      gap: 1.5rem;
     }
   }
 
@@ -55,6 +72,7 @@
       flex: 0 0 100%;
       margin: 1rem 0;
     }
+
     button {
       flex: 0 0 100%;
     }
@@ -72,7 +90,7 @@
   padding: 1.5rem;
   background-color: $text-color;
   border-radius: $radius-lg;
-  
+
   div {
     display: flex;
     justify-content: space-between;

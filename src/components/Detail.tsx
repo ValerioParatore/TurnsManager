@@ -1,19 +1,20 @@
 import { useState, useEffect } from "react";
 import { useCharacter } from "../provider/CharacterProvider";
 import type { Character } from "../types/Character";
+import { CircleX } from "lucide-react";
 
 interface Props {
   character: Character | null;
+  onClearSelectedCharcter: () => void;
 }
 
-function Detail({ character }: Props) {
+function Detail({ character, onClearSelectedCharcter }: Props) {
   const { updateHero, updateMob, removeHero, removeMob } = useCharacter();
   const [amount, setAmount] = useState<string>('');
   const [isDamage, setIsDamage] = useState<boolean>(true)
   const [confirmeDelete, setconfirmeDelete] = useState<boolean>(false)
   const [localCharacter, setLocalCharacter] = useState<Character | null>(null);
 
-  // Quando cambia il character selezionato, aggiornalo localmente
   useEffect(() => {
     setLocalCharacter(character);
   }, [character]);
@@ -56,45 +57,55 @@ function Detail({ character }: Props) {
     }
 
     setLocalCharacter(null);
+    setconfirmeDelete(false);
   }
+
+
 
   return (
     <>
-      <h3 className="title title-dark">{localCharacter.nome}</h3>
+      <div className="detail-header">
+        <h3 className="title title-dark">{localCharacter.nome}</h3>
+        <button onClick={onClearSelectedCharcter}><CircleX /></button>
+      </div>
 
+      <h4 className="subtitle subtitle-dark">Applica del danno o delle cure al personaggio.</h4>
       <section>
-        <h4 className="subtitle subtitle-dark">Applica del danno o delle cure al personaggio.</h4>
-        <div className="types">
-          <label className={isDamage ? 'active' : ''} htmlFor="dmg-true">Danno</label>
-          <input
-            type="radio"
-            name="dmg"
-            id="dmg-true"
-            
-            onChange={() => setIsDamage(true)}
-          />
-        </div>
-        <div className="types">
-          <label className={!isDamage ? 'active' : ''} htmlFor="dmg-false">Cura</label>
-          <input
-            type="radio"
-            name="dmg"
-            id="dmg-false"
-            className={!isDamage ? 'active' : ''}
-            onChange={() => setIsDamage(false)}
-          />
+        <div className="types-wrapper">
+          <div className="types">
+            <label className={isDamage ? 'active' : ''} htmlFor="dmg-true">Danno</label>
+            <input
+              type="radio"
+              name="dmg"
+              id="dmg-true"
+
+              onChange={() => setIsDamage(true)}
+            />
+          </div>
+          <div className="types">
+            <label className={!isDamage ? 'active' : ''} htmlFor="dmg-false">Cura</label>
+            <input
+              type="radio"
+              name="dmg"
+              id="dmg-false"
+              className={!isDamage ? 'active' : ''}
+              onChange={() => setIsDamage(false)}
+            />
+          </div>
         </div>
         <div className="amount">
-          <label className="label" htmlFor="damage">Ammontare di {isDamage ? 'danno' : 'cure'}</label>
-          <input
-            className="input" type="number" name="damage" id="damage" value={amount} onChange={(e) => setAmount(e.target.value)}/>
+          <div>
+            <label className="label" htmlFor="damage">Ammontare di {isDamage ? 'danno' : 'cure'}</label>
+            <input
+              className="input" type="number" name="damage" id="damage" value={amount} onChange={(e) => setAmount(e.target.value)} />
+          </div>
+          <button className="btn" onClick={handleDamage}>Conferma</button>
         </div>
-        <button className="btn" onClick={handleDamage}>Conferma</button>
       </section>
 
       <hr />
-      <form onSubmit={onSubmit}>
-        <h4 className="subtitle subtitle-dark">Modifica i dati del personaggio selezionato.</h4>
+      <h4 className="subtitle subtitle-dark">Modifica i dati del personaggio selezionato.</h4>
+      <form onSubmit={onSubmit}>        
         <div>
           <label className="label" htmlFor="pf">
             Punti ferita
@@ -145,14 +156,14 @@ function Detail({ character }: Props) {
       </button>
 
 
-      {confirmeDelete && 
-      <div className="detail-confirm-modal">
-        <h3 className="title title-dark">Confermi di voler eliminare il personaggio?</h3>
-        <div>
-          <button className="btn" onClick={() => setconfirmeDelete(false)}>Annulla</button>
-          <button className="btn btn-danger" onClick={handleDelete}>Elimina</button>
-        </div>
-      </div>}
+      {confirmeDelete &&
+        <div className="detail-confirm-modal">
+          <h3 className="title title-dark">Confermi di voler eliminare il personaggio?</h3>
+          <div>
+            <button className="btn" onClick={() => setconfirmeDelete(false)}>Annulla</button>
+            <button className="btn btn-danger" onClick={handleDelete}>Elimina</button>
+          </div>
+        </div>}
     </>
   );
 }
