@@ -27,23 +27,23 @@ const List = forwardRef<ListHandle, Props>(({ onItemSelected, selectedCharcter }
   const [showModalRestart, setshowModalRestart] = useState<boolean>(false);
   const [editableHeroes, setEditableHeroes] = useState<Character[]>([]);
 
-// Aggiorna mergedList ogni volta che heroes o mobs cambiano
-useEffect(() => {
-  if (heroes.length > 0 || mobs.length > 0) {
-    const newList = [...heroes, ...mobs].sort((a, b) => b.iniziativa - a.iniziativa);
-    setMergedList(newList);
-  }
-}, [heroes, mobs]);
+  // Aggiorna mergedList ogni volta che heroes o mobs cambiano
+  useEffect(() => {
+    if (heroes.length > 0 || mobs.length > 0) {
+      const newList = [...heroes, ...mobs].sort((a, b) => b.iniziativa - a.iniziativa);
+      setMergedList(newList);
+    }
+  }, [heroes, mobs]);
 
-// Inizializza solo la prima volta che mergedList è popolata
-useEffect(() => {
-  if (mergedList.length > 0 && !initialized) {
-    setTurn(0);
-    setRound(1);
-    setcharInTurn(mergedList[0]);
-    setInitialized(true); // ✅ flag per evitare esecuzioni future
-  }
-}, [mergedList, initialized]);
+  // Inizializza solo la prima volta che mergedList è popolata
+  useEffect(() => {
+    if (mergedList.length > 0 && !initialized) {
+      setTurn(0);
+      setRound(1);
+      setcharInTurn(mergedList[0]);
+      setInitialized(true); // ✅ flag per evitare esecuzioni future
+    }
+  }, [mergedList, initialized]);
 
   useImperativeHandle(ref, () => ({
     startNewFight,
@@ -93,18 +93,21 @@ useEffect(() => {
   return (
     <>
       {showModalRestart &&
-          <div className="form-modal modal-overlay">
+        <div className="form-modal modal-overlay">
+          {heroes.length ? (
             <div className="modal-content">
               <div className="form-modal_header">
                 <h3 className="title title-dark">Aggiorna l'iniziativa degli eroi.</h3>
-                <button><CircleX /></button>
+                <button onClick={() => setshowModalRestart(false)}><CircleX /></button>
               </div>
               <form className="form-modal_form" onSubmit={() => onConfirmResetInitiative()}>
                 {editableHeroes.map((hero, index) => (
                   <div key={hero.id}>
                     <label className="label">
                       {hero.nome}
+                      
                       <input
+                        className="input-number"
                         type="number"
                         name={hero.nome + index}
                         id={hero.nome + index}
@@ -124,8 +127,14 @@ useEffect(() => {
                 </button>
               </form>
             </div>
-          </div>
-        }
+          ) : (
+            <div className="form-modal_header">
+              <h3 className="title title-dark">Aggiungi gli eroi per poter far iniziare lo scontro!</h3>
+              <button><CircleX /></button>
+            </div>
+          )}
+        </div>
+      }
       <div className="list_header">
         <h3 className="title title-dark">Round numero: {round}</h3>
         <h4 className="subtitle subtitle-dark">
